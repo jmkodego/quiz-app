@@ -21,8 +21,11 @@ body {
     padding: 20px;
     margin: 20px auto;
     max-width: 600px;
+    display: none;
+
+   
   }
-  
+
   .question {
     margin-bottom: 20px;
   }
@@ -52,7 +55,7 @@ body {
     font-size: 16px;
   }
   
-  button#submit-btn {
+  button#submit-btn, button#start-btn {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
@@ -63,7 +66,10 @@ body {
     color: #fff;
     cursor: pointer;
   }
+  button#submit-btn {
+    display: none;
+  }
   
-  button#submit-btn:hover {
+  button#submit-btn:hover, button#start-btn:hover {
     background-color: #006080;
   }

@@ -1,3 +1,4 @@
+// data for quiz
 const quizData = [
   {
     question: "What is the capital of France?",
@@ -37,29 +38,33 @@ const quizData = [
   },
 ];
 
+// accessing the elements
 const questionContainer = document.getElementById("question-container");
+const startButton = document.getElementById("start-btn");
+const quizContainer = document.getElementById("quiz");
+const submitButton = document.getElementById("submit-btn");
 
+// some functions
 const addQuestionUI = (question, index) => {
+  const name = `q${index + 1}`;
+  const choices = addQuestionChoicesUI(question, name).join("");
   return `
         <div class="question">
         <h2>Question ${index + 1}</h2>
         <p>${question.question}</p>
         <ul>
-            <li><input type="radio" name="q${index + 1}"  />${
-    question.choices[0].text
-  }</li>
-            <li><input type="radio" name="q${index + 1}"  /> ${
-    question.choices[1].text
-  }</li>
-            <li><input type="radio" name="q${index + 1}" /> ${
-    question.choices[2].text
-  }</li>
-            <li><input type="radio" name="q${index + 1}" /> ${
-    question.choices[3].text
-  }</li>
+        ${choices}
         </ul>
         </div>
         `;
+};
+
+const addQuestionChoicesUI = (question, name) => {
+  return question.choices.map((choice) => {
+    return `
+     <li><input type="radio" name="${name}" value="${choice.text}"/>${choice.text}</li>
+      `;
+  });
 };
 
 const questionUIArray = quizData.map((question, index) => {
@@ -69,3 +74,23 @@ const questionUIArray = quizData.map((question, index) => {
 for (const question of questionUIArray) {
   questionContainer.innerHTML += question;
 }
+
+// event listeners
+startButton.addEventListener("click", () => {
+  quizContainer.style.display = "block";
+  submitButton.style.display = "block";
+  startButton.style.display = "none";
+});
+
+submitButton.addEventListener("click", () => {
+  const selectedAnswers = [];
+  const allInputs = document.querySelectorAll("input[type='radio']");
+
+  for (const input of allInputs) {
+    if (input.checked) {
+      selectedAnswers.push(input.value);
+    }
+  }
+
+  console.log(selectedAnswers);
+});
